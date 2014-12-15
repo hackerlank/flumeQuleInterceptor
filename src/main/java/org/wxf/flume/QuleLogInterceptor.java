@@ -94,7 +94,7 @@ public class QuleLogInterceptor implements Interceptor {
             //let demanded row pass through
             for (String keyword: keywordsArray) {
                 if (body.contains(keyword)) {
-
+System.out.println("---get event body: " + body + "---get keyword: " + keyword + "   and get logWait status: " + String.valueOf(logWait));
                     //execute log wait if set param to true
                     if (logWait) {
                         //push to queue
@@ -114,9 +114,8 @@ public class QuleLogInterceptor implements Interceptor {
                         eventList = eventQueue.element();
                         timeHash = eventList.get(0);
                         Long top_el_time = timeHash.get("time");
-logger.debug(eventQueue.toString());
-logger.debug("---------------------eventQueueSize: " + eventQueue.size());
-logger.debug("---------------------waitTimeDiff: " + (cur_time - top_el_time));
+System.out.println(eventQueue.toString());
+System.out.println("---------------------eventQueueSize: " + eventQueue.size() + "---waitTimeDiff: " + (cur_time - top_el_time));
                         if ((cur_time - top_el_time) > logWaitTime || eventQueue.size() > logWaitCache) {
                             eventHash = eventList.get(1);
                             Event top_el_event = eventHash.get("event");
